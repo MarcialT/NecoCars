@@ -1,13 +1,16 @@
 import { useEffect, useRef } from 'react';
 import type { MouseEvent, SyntheticEvent } from 'react';
 
+import { ExternalLink } from '@/components/ui/ExternalLink';
 import { Icon } from '@/components/ui/Icon';
 import { VisuallyHidden } from '@/components/ui/VisuallyHidden';
-import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
+import { siteConfig } from '@/config/site.config';
 import { brandContent } from '@/content/brand.content';
 import { navigationContent } from '@/content/navigation.content';
 import { uiContent } from '@/content/ui.content';
+import { whatsappContent } from '@/content/whatsapp.content';
 import { useSwipeToDismiss } from '@/hooks/useSwipeToDismiss';
+import { buildWhatsAppUrl } from '@/lib/whatsapp';
 
 import styles from './MobileDrawer.module.css';
 
@@ -31,6 +34,7 @@ export function MobileDrawer({ id, isOpen, onClose }: MobileDrawerProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { ref: panelRef, reset } = useSwipeToDismiss<HTMLDivElement>({ onDismiss: onClose });
   const { logo } = brandContent;
+  const whatsappUrl = buildWhatsAppUrl(siteConfig.whatsapp.phoneNumber, whatsappContent.defaultMessage);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -106,12 +110,14 @@ export function MobileDrawer({ id, isOpen, onClose }: MobileDrawerProps) {
                 </a>
               </li>
             ))}
+            {/* Un elemento más de la lista, con el mismo aspecto que las secciones. */}
+            <li>
+              <ExternalLink className={styles.link} href={whatsappUrl}>
+                {navigationContent.ctaLabel}
+              </ExternalLink>
+            </li>
           </ul>
         </nav>
-
-        <WhatsAppButton size="lg" isFullWidth>
-          {navigationContent.ctaLabel}
-        </WhatsAppButton>
       </div>
     </dialog>
   );

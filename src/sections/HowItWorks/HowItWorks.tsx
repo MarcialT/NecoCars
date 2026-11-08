@@ -20,7 +20,7 @@ export function HowItWorks({ background = 'default' }: HowItWorksProps) {
   return (
     <Section id={SECTION_IDS.howItWorks} background={background} aria-labelledby={HEADING_ID}>
       <Container>
-        <SectionHeading id={HEADING_ID} title={howItWorksContent.title} />
+        <SectionHeading id={HEADING_ID} title={howItWorksContent.title} className={styles.heading} />
         <ol className={styles.steps} role="list">
           {howItWorksContent.steps.map((step, index) => (
             <li key={step.id} className={styles.step}>

@@ -7,7 +7,6 @@ import { Reveal } from '@/components/ui/Reveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { SECTION_IDS } from '@/constants/sections';
 import { servicesContent } from '@/content/services.content';
-import { usePagedCarousel } from '@/hooks/usePagedCarousel';
 import { useScrollSnapIndex } from '@/hooks/useScrollSnapIndex';
 import { cn } from '@/lib/cn';
 
@@ -25,7 +24,6 @@ type ServicesProps = {
 export function Services({ background = 'default' }: ServicesProps) {
   const listRef = useRef<HTMLUListElement>(null);
   const activeIndex = useScrollSnapIndex(listRef);
-  usePagedCarousel(listRef);
 
   return (
     <Section id={SECTION_IDS.services} background={background} aria-labelledby={HEADING_ID}>

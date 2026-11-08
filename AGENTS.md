@@ -139,7 +139,6 @@ NecoCars/
     ├── hooks/                    # hooks reutilizables
     │   ├── useInView.ts          # ✔ true cuando un elemento entró en pantalla (una sola vez)
     │   ├── useSplashScreen.ts    # ✔ fases de la pantalla de carga: showing → leaving → done
-    │   ├── usePagedCarousel.ts   # ✔ carrusel que avanza UNA tarjeta por gesto (dedo, ratón, trackpad y flechas del teclado)
     │   ├── useScrollSnapIndex.ts # ✔ índice de la tarjeta visible en un carrusel (puntos indicadores)
     │   └── useSwipeToDismiss.ts  # ✔ cierre por gesto: arrastrar hacia la derecha (menú lateral)
     │
@@ -542,7 +541,9 @@ Fuente: `docs/brand/guia-de-marca.md`. Resumen de reglas:
   naranja entre las dos) y **altas (3:4)** en el teléfono para que se aprecie la pieza; desde 640px, cuadradas. Etiquetas ANTES/DESPUÉS
   sobre cada foto. Se descartaron las fotos apiladas y el comparador deslizante: al cliente no le gustaron.
 - **Tres pasos (`HowItWorks`):** siempre en **una sola fila de 3 tarjetas del MISMO alto** (el `<li>` estira a la tarjeta), con
-  franja naranja arriba y número, título y texto **centrados** en el teléfono (a la izquierda desde 640px). Los tres títulos
+  número, título y texto **centrados** en el teléfono (a la izquierda desde 640px). **En el teléfono no se ve el título de la sección**
+  (queda solo para lectores de pantalla) y las tarjetas ocupan **todo el ancho y todo el alto de la banda** (márgenes negativos que
+  anulan el relleno del contenedor y de la sección), sin franja naranja; la franja aparece desde 640px. Los tres títulos
   comparten tamaño y ocupan el mismo hueco de dos líneas (`min-height: 2.1em`, un título corto queda centrado en él): si
   no, unos parecen mayores que otros. **Sin `hyphens: auto`** (corta mal las palabras en columnas de ~90 px). Las tarjetas
   llevan `min-width: 0` para poder encogerse con la columna.
@@ -567,14 +568,9 @@ Fuente: `docs/brand/guia-de-marca.md`. Resumen de reglas:
     debe poder enfocarse con teclado, WCAG 2.1.1). Los puntos son decorativos (`aria-hidden`).
   - Para dar padding a una lista con `role="list"` usar `.clase[role='list']`: el reset (`ul[role='list']`) tiene más
     especificidad que `.clase` y le quita el `padding`.
-  - **Una tarjeta por gesto, siempre** (`usePagedCarousel`): `scroll-snap-stop: always` NO bastó en iOS, el impulso del dedo
-    pasaba de largo varias tarjetas. Por eso el hook arrastra el contenido con el dedo y, al soltar, decide a qué tarjeta
-    ir: la actual, la anterior o la siguiente, nunca más lejos (se pasa de tarjeta si el arrastre supera 40 px o va a más
-    de 0,3 px/ms). Con el **trackpad**, un deslizamiento horizontal avanza una sola tarjeta aunque llegue inercia (la rueda se
-    intercepta con `preventDefault`), y con el **ratón** se arrastra igual que con el dedo. También gestiona las flechas ← → del teclado. Requisitos del contenedor: `overflow-x: auto`,
-    `position: relative`, `touch-action: pan-y` y `scroll-snap-type: none` mientras tenga `data-paging="true"`.
-    Solo actúa si el contenedor tiene scroll horizontal (en tableta y escritorio es una rejilla). Verificado en Chromium
-    con gestos de hasta 1200 px; **probar también en un iPhone real**.
+  - **Scroll nativo con `scroll-snap`** (`x mandatory`), sin JavaScript que intercepte el gesto: se probó un hook que forzaba una
+    tarjeta por gesto (`usePagedCarousel`) y el carrusel se sentía trabado, así que se eliminó. Un deslizamiento fuerte puede pasar
+    varias tarjetas: el cliente prefiere la fluidez.
   - Las tarjetas del carrusel no usan `Reveal` (ocultas mientras se deslizan parecerían un hueco).
 - Probar siempre a **320, 360, 390, 768, 1024, 1280 y 1920px**: sin scroll horizontal, sin texto recortado,
   áreas táctiles ≥ 44px y sin violaciones de axe.
@@ -686,7 +682,8 @@ Fuente: `docs/brand/guia-de-marca.md`.
 - Enlace "Saltar al contenido" como primer elemento enfocable.
 - Formularios: cada `<input>` con `<label>` asociada; errores anunciados con `aria-describedby`
   y `aria-invalid`.
-- **Menú del teléfono (`MobileDrawer`)**: menú lateral con el `<dialog>` nativo en modo modal. El navegador bloquea el
+- **Menú del teléfono (`MobileDrawer`)**: menú lateral con el `<dialog>` nativo en modo modal. "Contáctanos" (WhatsApp) es un elemento más de la
+  lista, con el mismo aspecto que las secciones (no un botón). El navegador bloquea el
   fondo (inerte), atrapa el foco, cierra con `Escape` y devuelve el foco al botón. El botón hamburguesa lleva
   `aria-haspopup="dialog"`, `aria-expanded` y `aria-controls`. Se cierra con: botón X, tocar fuera del panel, Escape, elegir
   un enlace o **deslizar el panel hacia la derecha** (`useSwipeToDismiss`: distancia > 80 px o velocidad > 0,5 px/ms; el

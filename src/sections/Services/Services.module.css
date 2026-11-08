@@ -13,16 +13,6 @@
   scroll-padding-inline: var(--container-padding-inline);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  /* `usePagedCarousel` mide posiciones respecto a este contenedor y gestiona el gesto horizontal (una tarjeta por gesto). */
-  position: relative;
-  touch-action: pan-y;
-  /* Arrastrar con el ratón no debe seleccionar el texto de las tarjetas. */
-  user-select: none;
-}
-
-/* Mientras el dedo arrastra o el carrusel se coloca, el snap nativo se apaga para no pelear con el movimiento. */
-.list[role='list'][data-paging='true'] {
-  scroll-snap-type: none;
 }
 
 .list[role='list']::-webkit-scrollbar {
@@ -37,8 +27,6 @@
 .item {
   flex: 0 0 min(72vw, 17.5rem);
   scroll-snap-align: start;
-  /* Un deslizamiento, por fuerte que sea, avanza como máximo una tarjeta: el carrusel se detiene en cada una. */
-  scroll-snap-stop: always;
 }
 
 /* En el carrusel las tarjetas se ven siempre: una tarjeta oculta mientras se desliza se vería como un hueco. */
@@ -82,8 +70,6 @@
     padding: 0;
     overflow: visible;
     scroll-snap-type: none;
-    touch-action: auto;
-    user-select: auto;
   }
 
   .item {

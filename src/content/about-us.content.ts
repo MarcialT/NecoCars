@@ -1,8 +1,8 @@
-import type { WhyUsContent } from '@/types/content.types';
+import type { AboutUsContent } from '@/types/content.types';
 
 /* Borrador: confirmar con el cliente que cada punto es cierto antes de publicar. */
-export const whyUsContent = {
-  title: 'Por qué elegir Neco Cars',
+export const aboutUsContent = {
+  title: 'Nosotros',
   reasons: [
     {
       id: 'specialists',
@@ -25,4 +25,4 @@ export const whyUsContent = {
       description: 'Compras la pieza y la instalamos en el mismo taller.',
     },
   ],
-} satisfies WhyUsContent;
+} satisfies AboutUsContent;

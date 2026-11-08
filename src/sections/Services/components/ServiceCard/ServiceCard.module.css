@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: flex-end;
   aspect-ratio: 4 / 5;
-  min-height: 22rem;
+  min-height: 19rem;
   overflow: hidden;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-card);

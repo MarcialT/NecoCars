@@ -13,10 +13,6 @@
   transition: border-color var(--duration-normal) var(--easing-standard);
 }
 
-.pair .photo img {
-  transition: transform calc(var(--duration-reveal) - 100ms) var(--easing-out);
-}
-
 @media (hover: hover) {
   .card:hover {
     border-color: var(--color-brand);
@@ -27,7 +23,14 @@
   }
 }
 
-/* Las dos fotos pegadas; el hueco de 4 px deja ver la línea naranja de marca. */
+.photo img {
+  transition: transform calc(var(--duration-reveal) - 100ms) var(--easing-out);
+}
+
+/*
+ * Las dos fotos van siempre una al lado de otra; el hueco de 4 px deja ver la línea naranja de marca.
+ * Teléfono: altas (3:4) para que se aprecie bien la pieza; desde 640px, cuadradas.
+ */
 .pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -42,17 +45,18 @@
 
 /* Las fotos van a sangre: las esquinas las recorta la tarjeta. */
 .pair .photo {
+  aspect-ratio: 3 / 4;
   border-radius: var(--radius-none);
 }
 
 /* Etiqueta sobre la foto: ANTES en negro con texto naranja, DESPUÉS en naranja con texto negro. */
 .tag {
   position: absolute;
-  top: var(--space-3);
-  left: var(--space-3);
-  padding: var(--space-1) var(--space-3);
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: var(--space-1) var(--space-2);
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-extrabold);
   letter-spacing: 0.08em;
   line-height: var(--line-height-snug);
@@ -80,6 +84,19 @@
   width: 3rem;
   height: 0.25rem;
   background-color: var(--color-brand);
+}
+
+@media (min-width: 640px) {
+  .pair .photo {
+    aspect-ratio: 1 / 1;
+  }
+
+  .tag {
+    top: var(--space-3);
+    left: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-md);
+  }
 }
 
 @media (min-width: 900px) {

@@ -32,8 +32,16 @@
   text-align: center;
 }
 
+/* El segundo párrafo ("Cuéntanos qué necesita tu carro…") no se muestra en el teléfono; aparece desde 640px. */
 .detail {
+  display: none;
   max-width: 28rem;
+}
+
+@media (min-width: 640px) {
+  .detail {
+    display: block;
+  }
 }
 
 /* Botón de WhatsApp: recuadro negro con texto naranja (el naranja destaca sobre negro). */
@@ -52,6 +60,7 @@
   line-height: var(--line-height-snug);
   text-align: left;
   text-transform: uppercase;
+  text-wrap: balance;
   transition: background-color var(--duration-fast) var(--easing-standard);
 }
 
@@ -73,5 +82,18 @@
     grid-template-columns: 1.2fr 1fr;
     gap: var(--space-12);
     align-items: center;
+  }
+}
+
+/* En el teléfono el botón ocupa todo el ancho y su texto va centrado (y equilibrado en dos líneas si no cabe en una). */
+@media (max-width: 639px) {
+  .action {
+    align-self: stretch;
+  }
+
+  .button {
+    justify-content: center;
+    width: 100%;
+    text-align: center;
   }
 }

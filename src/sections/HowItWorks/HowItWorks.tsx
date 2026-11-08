@@ -28,7 +28,9 @@ export function HowItWorks({ background = 'default' }: HowItWorksProps) {
                 <span className={styles.number} aria-hidden="true">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <Heading level={3}>{step.title}</Heading>
+                <Heading level={3} className={styles.title}>
+                  {step.title}
+                </Heading>
                 <p className={styles.description}>{step.description}</p>
               </Reveal>
             </li>

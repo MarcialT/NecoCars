@@ -1,11 +1,26 @@
 /*
- * Cinta de taller en movimiento continuo (carrusel). La tesela mide exactamente un periodo horizontal de
- * las franjas (periodo de 45° × √2), por eso el bucle es continuo y no se ve ningún salto.
+ * Cinta de taller en movimiento continuo (carrusel).
+ *
+ * Se anima con `transform` (lo resuelve la tarjeta gráfica, fluido incluso en celulares básicos). Animar
+ * `background-position` obligaba a repintar la franja en cada fotograma. El pseudoelemento es un periodo más ancho
+ * que la cinta y se desplaza exactamente un periodo (periodo horizontal de 45° = franja × √2), así el bucle es
+ * continuo y no se ve ningún salto.
  */
 .tape {
   --tape-period: calc(var(--tape-stripe-black) * 1.41421356);
 
+  position: relative;
   height: var(--tape-height);
+  overflow: hidden;
+}
+
+.tape::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--tape-period) * -1);
+  width: calc(100% + var(--tape-period));
   background-image: repeating-linear-gradient(
     45deg,
     var(--color-tape-a) 0 var(--tape-stripe-orange),
@@ -17,17 +32,14 @@
 
 /* Solo se mueve si la persona no pidió reducir el movimiento en su sistema. */
 @media (prefers-reduced-motion: no-preference) {
-  .tape {
+  .tape::before {
     animation: tape-scroll 2.5s linear infinite;
+    will-change: transform;
   }
 }
 
 @keyframes tape-scroll {
-  from {
-    background-position-x: 0;
-  }
-
   to {
-    background-position-x: var(--tape-period);
+    transform: translateX(var(--tape-period));
   }
 }

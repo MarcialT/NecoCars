@@ -1,0 +1,110 @@
+/*
+ * Banda a todo el ancho: tablero 2×2 de bloques rectos en ajedrez (naranja, negro / negro, naranja).
+ * Es 2×2 en todos los tamaños, también en el teléfono; por eso los textos y los iconos son más pequeños en pantallas
+ * estrechas y crecen desde 640px.
+ */
+.band {
+  padding-block: 0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  padding: 0;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: 11rem;
+  padding: var(--space-5) var(--space-4);
+  /* El texto de la columna izquierda se alinea con el contenido del resto de la página (que está centrado en el contenedor). */
+  padding-left: max(
+    var(--container-padding-inline),
+    calc((100vw - var(--container-max)) / 2 + var(--container-padding-inline))
+  );
+}
+
+/* Columna derecha: relleno normal (la izquierda ya está alineada con el contenedor). */
+.block:nth-child(even) {
+  padding-left: var(--space-4);
+}
+
+.icon {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* El título es `xl` en teléfono para que "ESPECIALISTAS" quepa en una columna de 160px; crece desde 640px. */
+.block .title {
+  font-size: var(--font-size-xl);
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-snug);
+}
+
+/* Ajedrez: 1 y 4 naranja (texto e icono en negro); 2 y 3 negro (texto blanco, icono naranja, descripción gris). */
+.block:nth-child(1),
+.block:nth-child(4) {
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+.block:nth-child(2),
+.block:nth-child(3) {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.block:nth-child(2) .icon,
+.block:nth-child(3) .icon {
+  color: var(--color-brand);
+}
+
+.block:nth-child(2) .description,
+.block:nth-child(3) .description {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 640px) {
+  .block {
+    gap: var(--space-8);
+    min-height: 16rem;
+    padding-block: var(--space-8);
+  }
+
+  .icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .block .title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .description {
+    font-size: var(--font-size-md);
+  }
+}
+
+@media (min-width: 768px) {
+  .block {
+    min-height: 18rem;
+    padding-block: var(--space-10);
+  }
+
+  .block:nth-child(even) {
+    padding-left: var(--container-padding-inline);
+  }
+}

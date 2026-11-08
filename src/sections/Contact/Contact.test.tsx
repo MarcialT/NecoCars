@@ -29,4 +29,21 @@ describe('Contact', () => {
       siteConfig.social.instagram.url,
     );
   });
+
+  it('shows each channel as one whole link with its label and value (WhatsApp, Instagram, location)', () => {
+    render(<Contact />);
+
+    expect(screen.getByRole('link', { name: /^WhatsApp 0412 273 1718/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /^Instagram @necocars\.mcbo/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /^Ubicación Av\. 16 con Calle 89B/ })).toBeInTheDocument();
+  });
+
+  it('keeps the decorative icons out of the accessibility tree', () => {
+    const { container } = render(<Contact />);
+
+    const icons = container.querySelectorAll('li a svg');
+
+    expect(icons).toHaveLength(6);
+    icons.forEach((icon) => expect(icon).toHaveAttribute('aria-hidden', 'true'));
+  });
 });

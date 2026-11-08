@@ -5,8 +5,9 @@ export const navigationContent = {
   ariaLabel: 'Principal',
   links: [
     { id: 'services', label: 'Servicios', href: `#${SECTION_IDS.services}` },
-    { id: 'why-us', label: 'Por qué elegirnos', href: `#${SECTION_IDS.whyUs}` },
+    { id: 'about-us', label: 'Nosotros', href: `#${SECTION_IDS.aboutUs}` },
     { id: 'works', label: 'Trabajos', href: `#${SECTION_IDS.works}` },
   ],
-  ctaLabel: 'Cotiza por WhatsApp',
+  /** Texto del botón del navbar y del menú lateral. Abre WhatsApp con el mensaje de cotización. */
+  ctaLabel: 'Contáctanos',
 } satisfies NavigationContent;

@@ -90,6 +90,8 @@
   --duration-reveal: 700ms;
   --easing-out: cubic-bezier(0.16, 1, 0.3, 1);
   --reveal-distance: 1.5rem;
+  /* Multiplica los retrasos de escalonado: 1 en escritorio; menos en teléfono. */
+  --reveal-delay-scale: 1;
 
   /* ── Capas ───────────────────────────────────────── */
   --z-base: 0;
@@ -110,6 +112,38 @@
   --container-padding-inline: clamp(var(--space-5), 5vw, var(--space-10));
   --header-height: 4.5rem;
   --touch-target-min: 2.75rem;
+}
+
+/*
+ * Teléfono (< 640px): escala compacta. Tipografía y espacios grandes más pequeños para que quepa más contenido por
+ * pantalla, y animaciones de entrada más rápidas y cortas (en el celular se sienten lentas).
+ * Cada componente usa estos mismos tokens, así que se ajustan todos a la vez.
+ */
+@media (max-width: 639px) {
+  :root {
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.0625rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+    --font-size-4xl: 2.5rem;
+
+    --space-8: 1.75rem;
+    --space-10: 2.25rem;
+    --space-12: 2.5rem;
+    --space-16: 3rem;
+    --space-20: 3.5rem;
+    --space-24: 4rem;
+    --section-padding-block: var(--space-12);
+
+    --header-height: 4rem;
+
+    /* Entradas al hacer scroll: más cortas, menos recorrido y casi sin escalonado. */
+    --duration-reveal: 280ms;
+    --reveal-distance: 0.5rem;
+    --reveal-delay-scale: 0.1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-type ObserverCallback = (entries: Pick<IntersectionObserverEntry, 'isIntersecting'>[]) => void;
+type ObserverCallback = (entries: Partial<IntersectionObserverEntry>[]) => void;
 
 type FakeObserver = {
   callback: ObserverCallback;

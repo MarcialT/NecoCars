@@ -3,6 +3,7 @@
   align-items: center;
 }
 
+/* Botón hamburguesa: solo en teléfono y tableta. Abre el menú lateral (MobileDrawer). */
 .toggle {
   display: inline-flex;
   align-items: center;
@@ -19,9 +20,6 @@
   width: 1.5rem;
   height: 2px;
   background-color: currentColor;
-  transition:
-    transform var(--duration-normal) var(--easing-out),
-    background-color var(--duration-fast) var(--easing-standard);
 }
 
 .toggleBars {
@@ -43,44 +41,9 @@
   top: 0.4375rem;
 }
 
-/* Menú móvil: panel a pantalla completa bajo el header */
+/* El menú de la barra solo existe desde 1024px; por debajo lo sustituye el menú lateral. */
 .menu {
-  position: absolute;
-  top: var(--header-height);
-  right: 0;
-  left: 0;
   display: none;
-  flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-6);
-  padding: var(--space-6) var(--container-padding-inline) var(--space-8);
-  border-bottom: var(--border-width) solid var(--color-border);
-  background-color: var(--color-bg);
-}
-
-.menuOpen {
-  display: flex;
-  animation: menu-in var(--duration-normal) var(--easing-out) both;
-}
-
-@keyframes menu-in {
-  from {
-    opacity: 0;
-    transform: translateY(-0.5rem);
-  }
-}
-
-/* Con el menú abierto, la hamburguesa se transforma en una X. */
-.toggle[aria-expanded='true'] .toggleBars {
-  background-color: transparent;
-}
-
-.toggle[aria-expanded='true'] .toggleBars::before {
-  transform: translateY(0.4375rem) rotate(45deg);
-}
-
-.toggle[aria-expanded='true'] .toggleBars::after {
-  transform: translateY(-0.4375rem) rotate(-45deg);
 }
 
 .list {
@@ -91,19 +54,16 @@
 }
 
 .link {
+  position: relative;
   display: flex;
   align-items: center;
   min-height: var(--touch-target-min);
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   transition: color var(--duration-fast) var(--easing-standard);
-}
-
-.link {
-  position: relative;
 }
 
 .link:hover {
@@ -116,27 +76,15 @@
   }
 
   .menu {
-    position: static;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: var(--space-8);
-    padding: 0;
-    border: 0;
-    background: none;
   }
 
   .list {
     flex-direction: row;
     gap: var(--space-6);
-  }
-
-  .menuOpen {
-    animation: none;
-  }
-
-  .link {
-    font-size: var(--font-size-md);
   }
 
   /* Subrayado naranja que crece desde la izquierda al pasar el cursor o enfocar con teclado. */

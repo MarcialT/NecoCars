@@ -1,0 +1,130 @@
+/*
+ * Menú lateral del teléfono (sidebar). El <dialog> ocupa toda la pantalla y es transparente: el panel va pegado a la
+ * derecha y el resto (la capa oscura) sirve para cerrar tocando fuera.
+ */
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.72);
+  opacity: 1;
+}
+
+.dialog[data-state='open']::backdrop {
+  animation: drawer-fade var(--duration-normal) var(--easing-standard) backwards;
+}
+
+.dialog[data-state='closing']::backdrop {
+  opacity: 0;
+  transition: opacity 220ms var(--easing-standard);
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  width: min(86vw, 21rem);
+  padding: var(--space-4) var(--space-5) var(--space-8);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-left: var(--border-width) solid var(--color-border);
+  background-color: var(--color-bg);
+  /* El navegador gestiona el desplazamiento vertical; el horizontal lo recibe el gesto de cierre. */
+  touch-action: pan-y;
+  /* Arrastrar el panel con el ratón no debe seleccionar texto. */
+  user-select: none;
+  transform: translateX(var(--swipe-x, 0px));
+  transition: transform var(--duration-normal) var(--easing-out);
+}
+
+/* Mientras el dedo arrastra, el panel lo sigue sin transición. */
+.panel[data-swiping='true'] {
+  transition: none;
+}
+
+.dialog[data-state='open'] .panel {
+  animation: drawer-in 300ms var(--easing-out) backwards;
+}
+
+.dialog[data-state='closing'] .panel {
+  transform: translateX(100%);
+  transition: transform 220ms cubic-bezier(0.4, 0, 1, 1);
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drawer-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--touch-target-min);
+}
+
+.logo {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  margin-right: calc(var(--space-2) * -1);
+  color: var(--color-text);
+  transition: color var(--duration-fast) var(--easing-standard);
+}
+
+.close:hover {
+  color: var(--color-brand);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: 3.5rem;
+  border-bottom: var(--border-width) solid var(--color-border);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--duration-fast) var(--easing-standard);
+}
+
+.link:hover {
+  color: var(--color-brand);
+}

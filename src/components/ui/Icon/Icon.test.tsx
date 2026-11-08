@@ -11,7 +11,7 @@ describe('Icon', () => {
   });
 
   it('draws every icon in the set', () => {
-    for (const name of ['instagram', 'whatsapp', 'map-pin', 'star', 'wrench', 'clock', 'box'] as const) {
+    for (const name of ['instagram', 'whatsapp', 'map-pin', 'star', 'wrench', 'clock', 'box', 'arrow-up-right', 'close'] as const) {
       const { container, unmount } = render(<Icon name={name} />);
 
       expect(container.querySelector('svg')?.children.length).toBeGreaterThan(0);

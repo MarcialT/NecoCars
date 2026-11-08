@@ -19,8 +19,8 @@ type UseInViewResult<T extends Element> = {
  * devuelve `true` desde el principio para que el contenido nunca quede oculto.
  */
 export function useInView<T extends Element>({
-  threshold = 0.15,
-  rootMargin = '0px 0px -8% 0px',
+  threshold = 0.05,
+  rootMargin = '0px 0px -4% 0px',
 }: UseInViewOptions = {}): UseInViewResult<T> {
   const ref = useRef<T | null>(null);
   const [isInView, setIsInView] = useState(() => !canAnimateOnScroll());

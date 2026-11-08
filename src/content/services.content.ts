@@ -5,6 +5,7 @@ import { photosContent } from './photos.content';
 export const servicesContent = {
   title: 'Servicios',
   description: 'Venta, reparación, cambio y mantenimiento de las piezas que hacen que tu carro gire y avance bien.',
+  carouselLabel: 'Servicios: desliza para ver más',
   items: [
     {
       id: 'tripoides',

@@ -57,6 +57,8 @@ export type ServiceItem = {
 };
 
 export type ServicesContent = SectionHeadingContent & {
+  /** Nombre accesible del carrusel del teléfono (se anuncia a lectores de pantalla). */
+  carouselLabel: string;
   items: ServiceItem[];
 };
 
@@ -83,7 +85,7 @@ export type ReasonItem = {
   description: string;
 };
 
-export type WhyUsContent = SectionHeadingContent & {
+export type AboutUsContent = SectionHeadingContent & {
   reasons: ReasonItem[];
 };
 
@@ -116,6 +118,8 @@ export type ReviewsContent = SectionHeadingContent & {
 
 export type ContactContent = {
   title: string;
+  /** Título en teléfono (más corto). */
+  titleShort: string;
   description: string;
   ctaLabel: string;
   detailLabels: {

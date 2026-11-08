@@ -14,7 +14,7 @@ import { Hero } from '@/sections/Hero';
 import { HowItWorks } from '@/sections/HowItWorks';
 import { Reviews } from '@/sections/Reviews';
 import { Services } from '@/sections/Services';
-import { WhyUs } from '@/sections/WhyUs';
+import { AboutUs } from '@/sections/AboutUs';
 import { Works } from '@/sections/Works';
 
 type PageSection = {
@@ -35,7 +35,7 @@ const PAGE_SECTIONS: PageSection[] = [
   { id: SECTION_IDS.services, render: (background) => <Services background={background} /> },
   { id: SECTION_IDS.generalMechanics, isBand: true, render: () => <GeneralMechanics /> },
   { id: SECTION_IDS.howItWorks, render: (background) => <HowItWorks background={background} /> },
-  { id: SECTION_IDS.whyUs, isBand: true, hasDarkBlocks: true, render: () => <WhyUs /> },
+  { id: SECTION_IDS.aboutUs, isBand: true, hasDarkBlocks: true, render: () => <AboutUs /> },
   { id: SECTION_IDS.works, render: (background) => <Works background={background} /> },
   ...(reviewsContent.reviews.length > 0
     ? [{ id: SECTION_IDS.reviews, render: (background: SectionBackground) => <Reviews background={background} /> }]

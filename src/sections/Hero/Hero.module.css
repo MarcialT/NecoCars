@@ -1,5 +1,5 @@
 .hero {
-  padding-block: var(--space-12) var(--space-16);
+  padding-block: var(--space-10) var(--space-12);
 }
 
 .inner {
@@ -17,6 +17,20 @@
 
 .highlight {
   color: var(--color-brand);
+}
+
+/*
+ * Título en teléfono: más grande (crece con el ancho de la pantalla) y con "tren delantero" en su propia línea,
+ * así queda en tres líneas equilibradas (TRIPOIDES, / CARDANES Y / TREN DELANTERO) y la naranja destaca.
+ */
+@media (max-width: 639px) {
+  .copy .title {
+    font-size: clamp(2.5rem, 12.5vw, 3.25rem);
+  }
+
+  .highlight {
+    display: block;
+  }
 }
 
 .description {
@@ -49,9 +63,17 @@
   }
 }
 
+/* En el teléfono el hero no lleva logo (ya está en el navbar); aparece desde 640px. */
 .logo {
+  display: none;
   width: min(100%, 22rem);
   justify-self: center;
+}
+
+@media (min-width: 640px) {
+  .logo {
+    display: block;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -94,11 +116,11 @@
   }
 
   .description {
-    animation-delay: 120ms;
+    animation-delay: calc(120ms * var(--reveal-delay-scale, 1));
   }
 
   .actions {
-    animation-delay: 240ms;
+    animation-delay: calc(240ms * var(--reveal-delay-scale, 1));
   }
 
   .logo {

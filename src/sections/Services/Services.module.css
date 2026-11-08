@@ -1,28 +1,112 @@
-.grid {
-  display: grid;
-  gap: var(--space-6);
-  padding: 0;
+/*
+ * Teléfono (< 640px): carrusel horizontal con "snap". Cada tarjeta se detiene alineada con el contenido y la
+ * siguiente asoma un poco para indicar que hay más. Desde 640px vuelve la rejilla de siempre.
+ */
+/* `[role='list']` da más especificidad que el reset (`ul[role='list'] { padding: 0 }`), que si no anularía el relleno. */
+.list[role='list'] {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0 calc(var(--container-padding-inline) * -1);
+  padding: 0 var(--container-padding-inline);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: var(--container-padding-inline);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* `usePagedCarousel` mide posiciones respecto a este contenedor y gestiona el gesto horizontal (una tarjeta por gesto). */
+  position: relative;
+  touch-action: pan-y;
+  /* Arrastrar con el ratón no debe seleccionar el texto de las tarjetas. */
+  user-select: none;
+}
+
+/* Mientras el dedo arrastra o el carrusel se coloca, el snap nativo se apaga para no pelear con el movimiento. */
+.list[role='list'][data-paging='true'] {
+  scroll-snap-type: none;
+}
+
+.list[role='list']::-webkit-scrollbar {
+  display: none;
+}
+
+/* El contenedor con scroll es enfocable con teclado: anillo hacia dentro para que no lo recorte el overflow. */
+.list[role='list']:focus-visible {
+  outline-offset: -2px;
+}
+
+.item {
+  flex: 0 0 min(72vw, 17.5rem);
+  scroll-snap-align: start;
+  /* Un deslizamiento, por fuerte que sea, avanza como máximo una tarjeta: el carrusel se detiene en cada una. */
+  scroll-snap-stop: always;
+}
+
+/* En el carrusel las tarjetas se ven siempre: una tarjeta oculta mientras se desliza se vería como un hueco. */
+@media (max-width: 639px) {
+  .item > .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-border);
+  transition:
+    width var(--duration-normal) var(--easing-out),
+    background-color var(--duration-normal) var(--easing-standard);
+}
+
+.dotActive {
+  width: 1.5rem;
+  background-color: var(--color-brand);
 }
 
 /* Tableta: 2 columnas; si la última tarjeta queda sola, se centra con el mismo ancho que las demás. */
 @media (min-width: 640px) {
-  .grid {
+  .list[role='list'] {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+    touch-action: auto;
+    user-select: auto;
   }
 
-  .grid > li:last-child:nth-child(odd) {
+  .item {
+    flex: none;
+  }
+
+  .item:last-child:nth-child(odd) {
     grid-column: 1 / -1;
     justify-self: center;
     width: calc((100% - var(--space-6)) / 2);
   }
+
+  .dots {
+    display: none;
+  }
 }
 
 @media (min-width: 960px) {
-  .grid {
+  .list[role='list'] {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .grid > li:last-child:nth-child(odd) {
+  .item:last-child:nth-child(odd) {
     grid-column: auto;
     justify-self: stretch;
     width: auto;

@@ -5,7 +5,7 @@ export const SECTION_IDS = {
   services: 'services',
   generalMechanics: 'general-mechanics',
   howItWorks: 'how-it-works',
-  whyUs: 'why-us',
+  aboutUs: 'about-us',
   works: 'works',
   reviews: 'reviews',
   contact: 'contact',

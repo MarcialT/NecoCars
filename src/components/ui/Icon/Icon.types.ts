@@ -1,4 +1,4 @@
-export type IconName = 'instagram' | 'whatsapp' | 'map-pin' | 'star' | 'wrench' | 'clock' | 'box';
+export type IconName = 'instagram' | 'whatsapp' | 'map-pin' | 'star' | 'wrench' | 'clock' | 'box' | 'arrow-up-right' | 'close';
 
 export type IconProps = {
   name: IconName;

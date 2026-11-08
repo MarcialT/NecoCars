@@ -25,39 +25,107 @@
   line-height: var(--line-height-snug);
 }
 
-.details {
-  display: grid;
-  align-content: center;
-  gap: var(--space-5);
-  margin: 0;
+/* En el teléfono el título es "Contáctanos" y no hay botón "Abrir WhatsApp" (la ficha de WhatsApp ya lo cubre). */
+.titlePhone {
+  display: inline;
 }
 
-.detail dt {
+.titleDesktop {
+  display: none;
+}
+
+.cta {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .titlePhone {
+    display: none;
+  }
+
+  .titleDesktop {
+    display: inline;
+  }
+
+  .cta {
+    display: inline-flex;
+  }
+}
+
+/* Fichas de contacto: tres bloques negros rectos (sobre naranja), cada uno es un enlace completo. */
+.channels {
+  display: grid;
+  gap: var(--space-3);
+  align-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.channel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 4.5rem;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    transform var(--duration-fast) var(--easing-out);
+}
+
+.channelIcon {
+  flex-shrink: 0;
+  color: var(--color-brand);
+}
+
+.channelText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.channelLabel {
+  color: var(--color-text-muted);
   font-family: var(--font-family-heading);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-label);
+  line-height: var(--line-height-snug);
   text-transform: uppercase;
 }
 
-.detail dd {
-  margin: 0;
+.channelValue {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-extrabold);
   line-height: var(--line-height-tight);
+  overflow-wrap: anywhere;
 }
 
-.detailLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--touch-target-min);
-  text-decoration: none;
+.channelArrow {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  transition:
+    color var(--duration-fast) var(--easing-standard),
+    transform var(--duration-fast) var(--easing-out);
 }
 
-/* Sin subrayado: el cambio de opacidad al pasar el cursor indica que es un enlace. */
-.detailLink:hover {
-  opacity: 0.7;
+@media (hover: hover) {
+  .channel:hover {
+    background-color: var(--color-dark-hover);
+    transform: translateX(var(--space-1));
+  }
+
+  .channel:hover .channelArrow {
+    color: var(--color-brand);
+    transform: translate(2px, -2px);
+  }
+}
+
+.channel:focus-visible .channelArrow {
+  color: var(--color-brand);
 }
 
 @media (min-width: 768px) {

@@ -92,10 +92,10 @@ NecoCars/
     │   ├── Services/             # ✔ creado (tripoides, cardanes, tren delantero)
     │   ├── GeneralMechanics/     # ✔ creado (banda naranja a todo el ancho con CTA; sin cinta)
     │   ├── HowItWorks/           # ✔ creado
-    │   ├── WhyUs/                # ✔ creado (banda a todo el ancho con 4 bloques rectos en ajedrez naranja/negro, sin cinta; sin título visible ni fotos)
+    │   ├── AboutUs/              # ✔ creado — "Nosotros" (banda a todo el ancho con 4 bloques rectos en ajedrez 2×2 naranja/negro, también en teléfono; sin cinta, sin título visible ni fotos)
     │   ├── Works/                # ✔ creado (antes/después de tripoide y cardán)
     │   ├── Reviews/              # ✔ creado (reseñas de Google; NO se muestra si no hay reseñas reales)
-    │   └── Contact/              # ✔ creado (banda naranja a todo el ancho "Escríbenos por WhatsApp" con teléfono, Instagram y dirección)
+    │   └── Contact/              # ✔ creado (banda naranja a todo el ancho "Escríbenos por WhatsApp" con tres fichas negras pulsables: WhatsApp, Instagram y ubicación)
     │
     ├── components/
     │   ├── ui/                   # piezas atómicas reutilizables, sin lógica de negocio
@@ -107,7 +107,7 @@ NecoCars/
     │   │   ├── SectionHeading/   # ✔ creado (h2 + descripción)
     │   │   ├── WhatsAppButton/   # ✔ creado (único CTA de contacto)
     │   │   ├── ExternalLink/     # ✔ creado (<a> externo: pestaña nueva segura + aviso a lectores de pantalla)
-    │   │   ├── Icon/             # ✔ creado (instagram, whatsapp, map-pin; SVG de trazo, decorativos)
+    │   │   ├── Icon/             # ✔ creado (instagram, whatsapp, map-pin, star, wrench, clock, box, arrow-up-right, close; SVG de trazo, decorativos)
     │   │   ├── Photo/            # ✔ creado (foto real o marcador "Foto pendiente" con el nombre de archivo)
     │   │   └── Reveal/           # ✔ creado (entrada con fundido + deslizamiento al aparecer en pantalla)
     │   └── layout/               # estructura de página
@@ -115,7 +115,8 @@ NecoCars/
     │       ├── Section/          # ✔ creado
     │       ├── SkipLink/         # ✔ creado
     │       ├── Header/           # ✔ creado
-    │       ├── Navbar/           # ✔ creado (menú móvil accesible)
+    │       ├── Navbar/           # ✔ creado (menú de escritorio + botón hamburguesa)
+    │       ├── MobileDrawer/     # ✔ creado (menú lateral del teléfono: <dialog> modal, se cierra con gesto)
     │       ├── Footer/           # ✔ creado
     │       └── SplashScreen/     # ✔ creado (pantalla de carga con el logo, solo en la 1ª visita de la sesión)
     │
@@ -128,7 +129,7 @@ NecoCars/
     │   ├── services.content.ts   # ✔
     │   ├── general-mechanics.content.ts # ✔
     │   ├── how-it-works.content.ts # ✔
-    │   ├── why-us.content.ts     # ✔ (borrador: confirmar con el cliente)
+    │   ├── about-us.content.ts   # ✔ (borrador: confirmar con el cliente)
     │   ├── works.content.ts      # ✔
     │   ├── reviews.content.ts    # ✔ (vacío hasta tener reseñas reales)
     │   ├── contact.content.ts    # ✔
@@ -137,7 +138,10 @@ NecoCars/
     │
     ├── hooks/                    # hooks reutilizables
     │   ├── useInView.ts          # ✔ true cuando un elemento entró en pantalla (una sola vez)
-    │   └── useSplashScreen.ts    # ✔ fases de la pantalla de carga: showing → leaving → done
+    │   ├── useSplashScreen.ts    # ✔ fases de la pantalla de carga: showing → leaving → done
+    │   ├── usePagedCarousel.ts   # ✔ carrusel que avanza UNA tarjeta por gesto (dedo, ratón, trackpad y flechas del teclado)
+    │   ├── useScrollSnapIndex.ts # ✔ índice de la tarjeta visible en un carrusel (puntos indicadores)
+    │   └── useSwipeToDismiss.ts  # ✔ cierre por gesto: arrastrar hacia la derecha (menú lateral)
     │
     ├── services/                 # comunicación con el exterior (analytics, etc.). NO hay envío de correos
     │   └── analytics.service.ts
@@ -160,7 +164,7 @@ NecoCars/
     │   └── vite-env.d.ts         # tipado de import.meta.env
     │
     ├── test/
-    │   ├── setup.ts              # configuración global de Vitest (jest-dom, cleanup)
+    │   ├── setup.ts              # configuración global de Vitest (jest-dom, cleanup, sustituto de <dialog>: jsdom no tiene showModal)
     │   └── intersection-observer.ts # IntersectionObserver falso y controlable para los tests
     │
     ├── styles/                   # estilos globales (los únicos CSS no-módulo)
@@ -471,7 +475,8 @@ Fuente: `docs/brand/guia-de-marca.md`. Resumen de reglas:
 - **Sin textos pequeños sobre los títulos** (eyebrows, etiquetas tipo "PASO 1" o "SERVICIOS"): el cliente no los quiere.
   Si hace falta contexto, va en el título o en la descripción. Para numerar, usar un número grande en naranja ("01").
 - **Cinta de taller** (`Tape`): franjas diagonales naranja/negro **en movimiento continuo** (carrusel, solo si la persona
-  no redujo el movimiento en su sistema). Solo como banda entre bloques (hoy: bajo el hero y sobre el footer),
+  no redujo el movimiento en su sistema). Se anima con `transform` sobre un pseudoelemento (compositor/GPU), **nunca con
+  `background-position`** (repinta cada fotograma y va a trompicones en celulares básicos). Solo como banda entre bloques (hoy: bajo el hero y sobre el footer),
   **nunca detrás de texto** ni pegada a otra banda naranja.
 - **Evitar:** degradados, brillos o resplandores, sombras decorativas, emojis y textos de relleno.
 - **Favicon: es el logo** (no una versión simplificada ni una letra: el cliente lo descartó), recortado ajustado al emblema
@@ -531,9 +536,46 @@ Fuente: `docs/brand/guia-de-marca.md`. Resumen de reglas:
 - **Mobile-first**: estilos base para móvil y `@media (min-width: …)` para crecer.
 - Breakpoints únicos (las media queries de los CSS Modules usan siempre estos valores; las variables CSS
   no sirven dentro de `@media`): `sm 640px · md 768px · lg 1024px · xl 1280px`.
+- **Hero en teléfono:** sin el logo grande (ya está en el navbar); aparece desde 640px. El título es más grande (crece con el
+  ancho, `clamp(2.5rem, 12.5vw, 3.25rem)`) y "tren delantero" va en su propia línea en naranja: tres líneas equilibradas.
+- **Trabajos realizados (`Works`) en teléfono:** antes y después van **siempre una al lado de otra** (dos columnas pegadas, con la línea
+  naranja entre las dos) y **altas (3:4)** en el teléfono para que se aprecie la pieza; desde 640px, cuadradas. Etiquetas ANTES/DESPUÉS
+  sobre cada foto. Se descartaron las fotos apiladas y el comparador deslizante: al cliente no le gustaron.
+- **Tres pasos (`HowItWorks`):** siempre en **una sola fila de 3 tarjetas del MISMO alto** (el `<li>` estira a la tarjeta), con
+  franja naranja arriba y número, título y texto **centrados** en el teléfono (a la izquierda desde 640px). Los tres títulos
+  comparten tamaño y ocupan el mismo hueco de dos líneas (`min-height: 2.1em`, un título corto queda centrado en él): si
+  no, unos parecen mayores que otros. **Sin `hyphens: auto`** (corta mal las palabras en columnas de ~90 px). Las tarjetas
+  llevan `min-width: 0` para poder encogerse con la columna.
+- **Botón de mecánica general en teléfono:** ocupa todo el ancho, con el texto **centrado** y equilibrado (`text-wrap: balance`).
+- **Contacto en teléfono:** el título es **"Contáctanos"** (en escritorio "Escríbenos por WhatsApp"; son dos `<span>`, el oculto
+  va en `display: none`) y **no hay botón "Abrir WhatsApp"**: la ficha de WhatsApp ya hace ese trabajo.
+- **Mecánica general en teléfono:** sin el segundo párrafo ("Cuéntanos qué necesita tu carro…"); aparece desde 640px.
+- **Footer en teléfono:** sin el bloque de marca (logo, "Neco Cars" y subtítulo) y sin "Atención 24 horas"; quedan Navegación, Contacto y el copyright. La marca
+  aparece desde 640px.
+- **Header en teléfono:** solo el logo (sin el nombre "Neco Cars" al lado); el nombre aparece desde 640px. El enlace
+  de marca conserva `aria-label` para lectores de pantalla.
+- **Escala compacta en teléfono (< 640px):** `tokens.css` redefine en un solo sitio la tipografía grande (h1 40 px, h2/h3
+  32 px, texto 16 px), los espacios grandes (`--space-8` … `--space-24`), `--section-padding-block` (40 px) y
+  `--header-height` (64 px). Los componentes usan siempre esos tokens, así que se compactan todos a la vez: **no poner
+  tamaños fijos en `rem`/`px` para títulos o espacios grandes**; si un bloque necesita otro tamaño en teléfono, usar un
+  token o una media query propia (como `min-height` de `ServiceCard` y `AboutUs`).
 - **Menú de escritorio desde 1024px** (por debajo, menú hamburguesa): a 768px no caben el logo, 4 enlaces y el CTA.
-- Rejillas de tarjetas: 1 columna en móvil, 2 desde 640px (si la última queda sola, ocupa todo el ancho),
+- Rejillas de tarjetas: en **teléfono (< 640px) Servicios es un carrusel horizontal** con `scroll-snap` (tarjeta de 78vw
+  con la siguiente asomando y puntos indicadores); 2 columnas desde 640px (si la última queda sola, se centra) y
   3 desde 960px. No dejar tarjetas huérfanas.
+  - El carrusel es una `<ul role="list">` con scroll: lleva `tabIndex={0}` y `aria-label` (un contenedor con scroll
+    debe poder enfocarse con teclado, WCAG 2.1.1). Los puntos son decorativos (`aria-hidden`).
+  - Para dar padding a una lista con `role="list"` usar `.clase[role='list']`: el reset (`ul[role='list']`) tiene más
+    especificidad que `.clase` y le quita el `padding`.
+  - **Una tarjeta por gesto, siempre** (`usePagedCarousel`): `scroll-snap-stop: always` NO bastó en iOS, el impulso del dedo
+    pasaba de largo varias tarjetas. Por eso el hook arrastra el contenido con el dedo y, al soltar, decide a qué tarjeta
+    ir: la actual, la anterior o la siguiente, nunca más lejos (se pasa de tarjeta si el arrastre supera 40 px o va a más
+    de 0,3 px/ms). Con el **trackpad**, un deslizamiento horizontal avanza una sola tarjeta aunque llegue inercia (la rueda se
+    intercepta con `preventDefault`), y con el **ratón** se arrastra igual que con el dedo. También gestiona las flechas ← → del teclado. Requisitos del contenedor: `overflow-x: auto`,
+    `position: relative`, `touch-action: pan-y` y `scroll-snap-type: none` mientras tenga `data-paging="true"`.
+    Solo actúa si el contenedor tiene scroll horizontal (en tableta y escritorio es una rejilla). Verificado en Chromium
+    con gestos de hasta 1200 px; **probar también en un iPhone real**.
+  - Las tarjetas del carrusel no usan `Reveal` (ocultas mientras se deslizan parecerían un hueco).
 - Probar siempre a **320, 360, 390, 768, 1024, 1280 y 1920px**: sin scroll horizontal, sin texto recortado,
   áreas táctiles ≥ 44px y sin violaciones de axe.
 - El foco visible sobre superficies naranja usa anillo negro (`.panel :focus-visible` en `Contact`); el naranja-claro no se ve sobre naranja.
@@ -549,10 +591,13 @@ Fuente: `docs/brand/guia-de-marca.md`. Resumen de reglas:
 
 Efectos actuales: entrada al hacer scroll (`Reveal`), entrada del hero al cargar, cinta de taller en movimiento,
 barra de progreso de lectura en el header, hover de tarjetas (elevación, borde naranja y zoom de la foto), botones que se
-levantan, subrayado animado del menú y menú móvil (hamburguesa → X, panel que se desliza).
+levantan, subrayado animado del menú y menú lateral del teléfono (panel que se desliza desde la derecha y se cierra con un gesto).
 
 Reglas:
 
+- **Animaciones más rápidas en teléfono:** `--duration-reveal` 280 ms (700 ms en escritorio), `--reveal-distance` 8 px y
+  `--reveal-delay-scale: 0.1` (multiplica el escalonado de `Reveal` y del hero). En el celular las entradas largas
+  se sienten como que la página carga lenta.
 - **Solo `opacity` y `transform`.** Nunca animar `width`, `height`, `top`, `margin`… (provocan saltos de diseño y
   jank). Comprobado: el CLS al recorrer la página es ~0,002.
 - **Respetar `prefers-reduced-motion`.** Toda animación nueva debe desactivarse (`@media (prefers-reduced-motion: reduce)`)
@@ -602,6 +647,8 @@ Fuente: `docs/brand/guia-de-marca.md`.
   No: "Soluciones automotrices integrales de primer nivel."
 - **Nunca inventar ni prometer** precios, tiempos, garantías, años de experiencia, cifras ni testimonios que
   no estén confirmados por el cliente. Si falta un dato, dejarlo fuera o preguntar.
+- **El mensaje predeterminado de WhatsApp termina con 🔧 (llave inglesa) y no con punto** ("Hola, quiero cotizar un tripoide para mi
+  carro 🔧"): lo pidió el cliente. Es la única excepción a la regla de emojis, que vale para el diseño de la página, no para ese mensaje.
 - Sin emojis dentro del diseño. Preferir **fotos reales** del taller y de las piezas antes que ilustraciones o stock.
 - **Horario del taller (confirmado):** lunes a sábado, 8:00 a. m. a 4:00 p. m. (`siteConfig.contact.workshopHours`).
   La atención por **WhatsApp es aparte: 24 horas**. No mezclar ambos horarios.
@@ -619,7 +666,7 @@ Fuente: `docs/brand/guia-de-marca.md`.
   - `works/`: `tripoide-before`, `tripoide-after`, `cardan-before`, `cardan-after`.
 - **Una carpeta nueva por cada sección que lleve fotos.** El nombre dentro de la carpeta no repite la sección
   (`services/tripoides`, no `services/service-tripoides`). No dejar fotos sueltas en la raíz de `photos/`.
-- **No hay fotos** en Por qué elegirnos ni de carros en el elevador (el cliente las descartó).
+- **No hay fotos** en Nosotros ni de carros en el elevador (el cliente las descartó).
 - **Hoy los siete huecos tienen fotos PROVISIONALES** (licencia libre, de Wikimedia Commons): ver `docs/FOTOS-PROVISIONALES.md`
   con créditos y cómo reemplazarlas. **No publicar con ellas.**
 - Fotos reales, de día, con buena luz y buena resolución. Antes de publicar: optimizar (WebP, máx. ~1600 px de ancho).
@@ -639,7 +686,15 @@ Fuente: `docs/brand/guia-de-marca.md`.
 - Enlace "Saltar al contenido" como primer elemento enfocable.
 - Formularios: cada `<input>` con `<label>` asociada; errores anunciados con `aria-describedby`
   y `aria-invalid`.
-- El menú móvil gestiona `aria-expanded`, `aria-controls`, cierre con `Escape` y retorno del foco.
+- **Menú del teléfono (`MobileDrawer`)**: menú lateral con el `<dialog>` nativo en modo modal. El navegador bloquea el
+  fondo (inerte), atrapa el foco, cierra con `Escape` y devuelve el foco al botón. El botón hamburguesa lleva
+  `aria-haspopup="dialog"`, `aria-expanded` y `aria-controls`. Se cierra con: botón X, tocar fuera del panel, Escape, elegir
+  un enlace o **deslizar el panel hacia la derecha** (`useSwipeToDismiss`: distancia > 80 px o velocidad > 0,5 px/ms; el
+  panel necesita `touch-action: pan-y`). Funciona con el **dedo, el ratón (botón izquierdo) y el trackpad** (deslizamiento
+  horizontal de dos dedos, en cualquier sentido; cierra una sola vez aunque haya inercia). Los gestos hay que probarlos
+  con los tres: en una ventana estrecha de escritorio no hay táctil y solo se prueba con ratón/trackpad. Mientras está abierto, `<html data-drawer>` bloquea el scroll de la página y
+  el `<dialog>` lleva `data-lenis-prevent`. Si se ensancha la ventana a escritorio, se cierra solo. Duración de salida
+  (220 ms) en `MobileDrawer.tsx` **y** en su CSS: cambiar ambas.
   El botón tiene una **etiqueta fija** ("Menú"): el estado lo comunica `aria-expanded`, no el texto.
 - Todo enlace que abre pestaña nueva usa `ExternalLink` (o `WhatsAppButton`); el texto de estado
   `(se abre en una pestaña nueva)` va en `VisuallyHidden`, nunca con la clase `sr-only` a mano.

@@ -5,8 +5,8 @@
 .reveal {
   opacity: 0;
   transition:
-    opacity var(--duration-reveal) var(--easing-out) var(--reveal-delay, 0ms),
-    transform var(--duration-reveal) var(--easing-out) var(--reveal-delay, 0ms);
+    opacity var(--duration-reveal) var(--easing-out) calc(var(--reveal-delay, 0ms) * var(--reveal-delay-scale, 1)),
+    transform var(--duration-reveal) var(--easing-out) calc(var(--reveal-delay, 0ms) * var(--reveal-delay-scale, 1));
 }
 
 .up {

@@ -112,7 +112,7 @@ export function Footer() {
           <p>
             © {CURRENT_YEAR} {siteConfig.name}. {footerContent.rights}
           </p>
-          <p>{siteConfig.contact.availability}</p>
+          <p className={styles.availability}>{siteConfig.contact.availability}</p>
         </div>
       </Container>
     </footer>

@@ -4,7 +4,8 @@ html {
 }
 
 /* Pantalla de carga activa: sin scroll. `scrollbar-gutter` evita el salto de ancho cuando termina. */
-html[data-splash] {
+html[data-splash],
+html[data-drawer] {
   overflow: hidden;
   scrollbar-gutter: stable;
 }

@@ -71,8 +71,9 @@ NecoCars/
 ├── vite.config.ts
 ├── .env.example                  # variables de entorno documentadas (sin valores reales)
 ├── public/                       # archivos servidos tal cual, sin procesar por Vite
-│   ├── favicon.svg               # favicon: cuadrado naranja a sangre con una "N" negra (versión simplificada, NO el logo completo)
-│   ├── favicon.ico               # respaldo para navegadores antiguos (16, 32 y 48 px, sin transparencia)
+│   ├── favicon.ico               # favicon: el LOGO recortado al emblema, sobre negro opaco (16, 32 y 48 px)
+│   ├── favicon-32x32.png         # el mismo favicon en PNG (pestañas)
+│   ├── icon-192.png              # el mismo favicon a 192 px (Google lo usa en los resultados; debe ser múltiplo de 48)
 │   ├── apple-touch-icon.png      # icono de iPhone/iPad (180 px, a sangre: iOS le pone sus esquinas redondeadas)
 │   └── og-image.png              # imagen para compartir en redes (hoy: logo; ideal 1200×630)
 │                                 # robots.txt y sitemap.xml NO están aquí: los genera vite.config.ts
@@ -473,8 +474,10 @@ Fuente: `docs/brand/guia-de-marca.md`. Resumen de reglas:
   no redujo el movimiento en su sistema). Solo como banda entre bloques (hoy: bajo el hero y sobre el footer),
   **nunca detrás de texto** ni pegada a otra banda naranja.
 - **Evitar:** degradados, brillos o resplandores, sombras decorativas, emojis y textos de relleno.
-- **Favicon:** el logo completo es ilegible a 16 px, así que la pestaña usa un cuadrado naranja con una "N" negra
-  (`public/favicon.svg`). **Sin esquinas transparentes ni bordes**: en pestañas claras un hueco transparente se ve blanco. Es la única excepción a "no modificar el logo"; si cambia la marca, rehacer los tres archivos.
+- **Favicon: es el logo** (no una versión simplificada ni una letra: el cliente lo descartó), recortado ajustado al emblema
+  y sobre **negro opaco**. Sin transparencias: un hueco transparente se ve blanco en pestañas claras. Se genera desde el
+  original de alta resolución (`docs/brand/logo/neco-cars-logo.png`) reduciéndolo en pasos para que no se dentelle. Si
+  cambia el logo, rehacer `favicon.ico`, `favicon-32x32.png`, `icon-192.png` y `apple-touch-icon.png`.
 - El logo va **siempre sobre negro**, sin deformarlo, recortarlo ni cambiarle los colores.
   El archivo actual se reconstruyó de una captura: **sustituirlo por el original del diseñador** cuando exista.
 

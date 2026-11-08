@@ -1,0 +1,97 @@
+.grid {
+  display: grid;
+  gap: var(--space-10);
+  padding-block: var(--space-12) var(--space-10);
+}
+
+/* Marca */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.logo {
+  flex-shrink: 0;
+  width: 5rem;
+  height: 5rem;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.name {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: 0.06em;
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.tagline {
+  max-width: 20rem;
+  color: var(--color-text-muted);
+}
+
+/* Columnas de enlaces */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.columnTitle {
+  color: var(--color-brand);
+  letter-spacing: 0.08em;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-target-min);
+  transition: color var(--duration-fast) var(--easing-standard);
+}
+
+.link:hover {
+  color: var(--color-brand);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--color-brand);
+}
+
+/* Barra inferior */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-6);
+  border-top: var(--border-width) solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1.4fr 1fr 1.2fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

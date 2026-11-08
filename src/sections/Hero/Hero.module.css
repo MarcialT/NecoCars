@@ -1,0 +1,112 @@
+.hero {
+  padding-block: var(--space-12) var(--space-16);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.highlight {
+  color: var(--color-brand);
+}
+
+.description {
+  max-width: 34rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-snug);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: var(--space-4);
+}
+
+.actions > * {
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-self: flex-start;
+  }
+
+  .actions > * {
+    width: auto;
+  }
+}
+
+.logo {
+  width: min(100%, 22rem);
+  justify-self: center;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-block: var(--space-20);
+  }
+
+  .inner {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+
+  .logo {
+    width: min(100%, 30rem);
+  }
+}
+
+/*
+ * Entrada del hero al cargar: cada bloque sube con un pequeño retraso. El título entra sin retraso para no
+ * demorar el contenido principal visible (LCP).
+ */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+
+@keyframes hero-logo-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .title,
+  .description,
+  .actions {
+    animation: hero-enter var(--duration-reveal) var(--easing-out) both;
+  }
+
+  .description {
+    animation-delay: 120ms;
+  }
+
+  .actions {
+    animation-delay: 240ms;
+  }
+
+  .logo {
+    animation: hero-logo-enter calc(var(--duration-reveal) + 200ms) var(--easing-out) 150ms both;
+  }
+
+  /* Mientras la pantalla de carga está activa, la entrada del hero queda en pausa (en su estado inicial). */
+  :global(html[data-splash]) :is(.title, .description, .actions, .logo) {
+    animation-play-state: paused;
+  }
+}

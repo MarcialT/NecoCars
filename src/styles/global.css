@@ -1,0 +1,67 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+/* Pantalla de carga activa: sin scroll. `scrollbar-gutter` evita el salto de ancho cuando termina. */
+html[data-splash] {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+/* Con Lenis activo el suavizado lo hace la librería: el de CSS se desactiva para que no se sumen. */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  line-height: var(--line-height-display);
+  font-weight: var(--font-weight-extrabold);
+  text-transform: uppercase;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+main:focus {
+  outline: none;
+}

@@ -1,0 +1,73 @@
+/* Banda naranja de marca a todo el ancho: texto siempre en negro. */
+.band {
+  padding-block: var(--space-12);
+}
+
+.band :focus-visible {
+  outline-color: var(--color-dark);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.description {
+  max-width: 32rem;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-snug);
+}
+
+.details {
+  display: grid;
+  align-content: center;
+  gap: var(--space-5);
+  margin: 0;
+}
+
+.detail dt {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.detail dd {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+}
+
+.detailLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target-min);
+  text-decoration: none;
+}
+
+/* Sin subrayado: el cambio de opacidad al pasar el cursor indica que es un enlace. */
+.detailLink:hover {
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .band {
+    padding-block: var(--space-16);
+  }
+
+  .inner {
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+}

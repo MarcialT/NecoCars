@@ -1,0 +1,30 @@
+.grid {
+  display: grid;
+  gap: var(--space-6);
+  padding: 0;
+}
+
+/* Tableta: 2 columnas; si la última tarjeta queda sola, se centra con el mismo ancho que las demás. */
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid > li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - var(--space-6)) / 2);
+  }
+}
+
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid > li:last-child:nth-child(odd) {
+    grid-column: auto;
+    justify-self: stretch;
+    width: auto;
+  }
+}

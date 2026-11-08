@@ -1,0 +1,40 @@
+/*
+ * Estado inicial oculto y desplazado; al entrar en pantalla pasa a `.visible`.
+ * El orden importa: `.visible` va después de las direcciones para ganar con la misma especificidad.
+ */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity var(--duration-reveal) var(--easing-out) var(--reveal-delay, 0ms),
+    transform var(--duration-reveal) var(--easing-out) var(--reveal-delay, 0ms);
+}
+
+.up {
+  transform: translateY(var(--reveal-distance));
+}
+
+.left {
+  transform: translateX(calc(var(--reveal-distance) * -1));
+}
+
+.right {
+  transform: translateX(var(--reveal-distance));
+}
+
+.none {
+  transform: none;
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sin animación para quien pidió reducir el movimiento: el contenido se ve siempre. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

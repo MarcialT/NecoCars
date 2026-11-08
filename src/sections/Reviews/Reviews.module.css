@@ -1,0 +1,42 @@
+.list {
+  display: grid;
+  gap: var(--space-6);
+  padding: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+}
+
+.stars {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.starOn {
+  color: var(--color-star);
+}
+
+.starOff {
+  color: var(--color-border);
+}
+
+.text {
+  flex-grow: 1;
+  margin: 0;
+  font-size: var(--font-size-md);
+}
+
+.author {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+}

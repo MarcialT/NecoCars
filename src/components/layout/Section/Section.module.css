@@ -1,0 +1,16 @@
+.section {
+  padding-block: var(--section-padding-block);
+}
+
+.default {
+  background-color: var(--color-bg);
+}
+
+.subtle {
+  background-color: var(--color-bg-subtle);
+}
+
+.brand {
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}

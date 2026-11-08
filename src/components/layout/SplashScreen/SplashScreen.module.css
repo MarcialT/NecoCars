@@ -1,0 +1,81 @@
+/*
+ * Pantalla de carga: fondo negro, logo que aparece, línea naranja que se llena y, al terminar, el conjunto
+ * sube como una cortina con la cinta de taller en el borde inferior.
+ */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-splash);
+  display: grid;
+  place-items: center;
+  background-color: var(--color-bg);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.logo {
+  width: min(60vw, 14rem);
+  height: auto;
+  animation: splash-logo 600ms var(--easing-out) both;
+}
+
+/* Carril gris con el relleno naranja que avanza. */
+.line {
+  position: relative;
+  width: min(45vw, 10rem);
+  height: 0.25rem;
+  overflow: hidden;
+  background-color: var(--color-border);
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: splash-fill 1100ms var(--easing-standard) 250ms both;
+}
+
+.tape {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.leaving {
+  animation: splash-exit 700ms cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+@keyframes splash-logo {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes splash-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes splash-exit {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* Con movimiento reducido no se muestra (el hook tampoco la monta); esto es una red de seguridad. */
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    display: none;
+  }
+}

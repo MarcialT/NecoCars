@@ -1,0 +1,10 @@
+Kit de marca — Neco Cars
+
+guia-de-marca.md   Guía completa: voz, logo, colores, fuentes, elementos y formatos.
+tokens.css         Variables CSS listas para la web (colores, fuentes, espaciado, radios) y clases base.
+tokens.json        Los mismos valores en JSON, por si se usan en Tailwind u otro sistema.
+logo/              Logo en PNG (2048, 512 y 192 px) y favicon.
+
+Fuentes: Barlow Condensed (principal) y Barlow (secundaria), gratis en Google Fonts.
+Contacto en la web: WhatsApp 0412 273 1718 (wa.me/584122731718) · Instagram @necocars.mcbo · Maracaibo, Zulia.
+Nota: el logo se reconstruyó desde una captura; reemplazar por el original del diseñador cuando esté disponible.

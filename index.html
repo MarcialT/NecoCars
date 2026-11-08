@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Mantener sincronizado con src/config/site.config.ts -->
+    <title>Neco Cars | Tripoides en Maracaibo</title>
+    <meta
+      name="description"
+      content="Venta, reparación y cambio de tripoides, cardanes y tren delantero en Maracaibo. Cotiza por WhatsApp, atención 24 horas."
+    />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <meta name="theme-color" content="#000000" />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_VE" />
+    <meta property="og:site_name" content="Neco Cars" />
+    <meta property="og:title" content="Neco Cars | Tripoides en Maracaibo" />
+    <meta
+      property="og:description"
+      content="Venta, reparación y cambio de tripoides, cardanes y tren delantero en Maracaibo. Cotiza por WhatsApp, atención 24 horas."
+    />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og-image.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Neco Cars | Tripoides en Maracaibo" />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.png" />
+
+    <!-- Datos estructurados -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AutoRepair",
+        "name": "Neco Cars mcbo",
+        "description": "Venta, reparación y cambio de tripoides, cardanes y tren delantero en Maracaibo.",
+        "url": "%SITE_URL%/",
+        "telephone": "+584122731718",
+        "image": "%SITE_URL%/og-image.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. 16 con Calle 89B",
+          "addressLocality": "Maracaibo",
+          "addressRegion": "Zulia",
+          "addressCountry": "VE"
+        },
+        "hasMap": "https://maps.app.goo.gl/6cPVe5EuVBuNokcF7",
+        "openingHours": "Mo-Sa 08:00-16:00",
+        "sameAs": ["https://www.instagram.com/necocars.mcbo"]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

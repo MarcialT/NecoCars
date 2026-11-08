@@ -1,0 +1,97 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target-min);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard),
+    transform var(--duration-fast) var(--easing-out);
+}
+
+/* Solo en dispositivos con cursor: en pantallas táctiles el hover se quedaría "pegado". */
+@media (hover: hover) {
+  .button:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Variantes */
+.primary {
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+.primary:hover:not(:disabled),
+.primary:focus-visible {
+  background-color: var(--color-brand-hover);
+}
+
+.secondary {
+  border-color: var(--color-brand);
+  background-color: transparent;
+  color: var(--color-brand);
+}
+
+.secondary:hover:not(:disabled),
+.secondary:focus-visible {
+  background-color: var(--color-brand-subtle);
+}
+
+.dark {
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.dark:hover:not(:disabled),
+.dark:focus-visible {
+  background-color: var(--color-dark-hover);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+.ghost:hover:not(:disabled),
+.ghost:focus-visible {
+  background-color: var(--color-surface);
+}
+
+/* Tamaños */
+.sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--font-size-lg);
+}
+
+.fullWidth {
+  width: 100%;
+}

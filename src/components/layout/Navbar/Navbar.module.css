@@ -1,0 +1,160 @@
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  color: var(--color-text);
+}
+
+.toggleBars,
+.toggleBars::before,
+.toggleBars::after {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background-color: currentColor;
+  transition:
+    transform var(--duration-normal) var(--easing-out),
+    background-color var(--duration-fast) var(--easing-standard);
+}
+
+.toggleBars {
+  position: relative;
+}
+
+.toggleBars::before,
+.toggleBars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.toggleBars::before {
+  top: -0.4375rem;
+}
+
+.toggleBars::after {
+  top: 0.4375rem;
+}
+
+/* Menú móvil: panel a pantalla completa bajo el header */
+.menu {
+  position: absolute;
+  top: var(--header-height);
+  right: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--container-padding-inline) var(--space-8);
+  border-bottom: var(--border-width) solid var(--color-border);
+  background-color: var(--color-bg);
+}
+
+.menuOpen {
+  display: flex;
+  animation: menu-in var(--duration-normal) var(--easing-out) both;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+/* Con el menú abierto, la hamburguesa se transforma en una X. */
+.toggle[aria-expanded='true'] .toggleBars {
+  background-color: transparent;
+}
+
+.toggle[aria-expanded='true'] .toggleBars::before {
+  transform: translateY(0.4375rem) rotate(45deg);
+}
+
+.toggle[aria-expanded='true'] .toggleBars::after {
+  transform: translateY(-0.4375rem) rotate(-45deg);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-target-min);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--duration-fast) var(--easing-standard);
+}
+
+.link {
+  position: relative;
+}
+
+.link:hover {
+  color: var(--color-brand);
+}
+
+@media (min-width: 1024px) {
+  .toggle {
+    display: none;
+  }
+
+  .menu {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-8);
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  .list {
+    flex-direction: row;
+    gap: var(--space-6);
+  }
+
+  .menuOpen {
+    animation: none;
+  }
+
+  .link {
+    font-size: var(--font-size-md);
+  }
+
+  /* Subrayado naranja que crece desde la izquierda al pasar el cursor o enfocar con teclado. */
+  .link::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0.5rem;
+    left: 0;
+    height: 2px;
+    background-color: var(--color-brand);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-normal) var(--easing-out);
+  }
+
+  .link:hover::after,
+  .link:focus-visible::after {
+    transform: scaleX(1);
+  }
+}

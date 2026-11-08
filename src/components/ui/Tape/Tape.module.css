@@ -1,0 +1,33 @@
+/*
+ * Cinta de taller en movimiento continuo (carrusel). La tesela mide exactamente un periodo horizontal de
+ * las franjas (periodo de 45° × √2), por eso el bucle es continuo y no se ve ningún salto.
+ */
+.tape {
+  --tape-period: calc(var(--tape-stripe-black) * 1.41421356);
+
+  height: var(--tape-height);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-tape-a) 0 var(--tape-stripe-orange),
+    var(--color-tape-b) var(--tape-stripe-orange) var(--tape-stripe-black)
+  );
+  background-size: var(--tape-period) 100%;
+  background-repeat: repeat-x;
+}
+
+/* Solo se mueve si la persona no pidió reducir el movimiento en su sistema. */
+@media (prefers-reduced-motion: no-preference) {
+  .tape {
+    animation: tape-scroll 2.5s linear infinite;
+  }
+}
+
+@keyframes tape-scroll {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: var(--tape-period);
+  }
+}

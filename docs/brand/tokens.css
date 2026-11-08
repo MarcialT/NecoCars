@@ -1,0 +1,37 @@
+/* Neco Cars — variables de marca para la web */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;600&display=swap');
+
+:root {
+  /* Colores */
+  --negro: #000000;          /* fondo general */
+  --carbon: #161616;         /* tarjetas sobre negro */
+  --borde: #2A2A2A;          /* líneas divisorias */
+  --naranja: #F57C20;        /* color de marca: destacados, botones, bloques (texto encima en negro) */
+  --naranja-claro: #FFB273;  /* acento puntual */
+  --blanco: #FFFFFF;         /* títulos y texto principal */
+  --gris: #BDBDBD;           /* texto secundario */
+
+  /* Fuentes */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif; /* principal: títulos, 800, MAYÚSCULAS */
+  --font-sans: "Barlow", system-ui, sans-serif;                   /* secundaria: textos 400 / 600 */
+
+  /* Espaciado (base de piezas de 1080 px; en web escalar según diseño) */
+  --margen: 88px;
+  --espacio-l: 56px;
+  --espacio-m: 28px;
+  --espacio-s: 16px;
+
+  /* Radios */
+  --recto: 0px;
+  --tarjeta: 28px;
+  --pastilla: 999px;
+}
+
+body { background: var(--negro); color: var(--blanco); font-family: var(--font-sans); }
+.titulo { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; line-height: .92; }
+.etiqueta { font-family: var(--font-display); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; background: var(--naranja); color: var(--negro); padding: 6px 18px 4px; display: inline-block; }
+.boton { background: var(--naranja); color: var(--negro); font-family: var(--font-sans); font-weight: 600; border-radius: var(--pastilla); padding: 16px 32px; border: 0; }
+.tarjeta { background: var(--carbon); border-radius: var(--tarjeta); }
+
+/* Cinta de taller (franjas diagonales negro/naranja) */
+.cinta { height: 40px; background: repeating-linear-gradient(45deg, var(--naranja) 0 30px, var(--negro) 30px 56px); }

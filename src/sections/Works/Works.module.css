@@ -1,0 +1,89 @@
+.cards {
+  display: grid;
+  gap: var(--space-6);
+  padding: 0;
+}
+
+.card {
+  overflow: hidden;
+  height: 100%;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  transition: border-color var(--duration-normal) var(--easing-standard);
+}
+
+.pair .photo img {
+  transition: transform calc(var(--duration-reveal) - 100ms) var(--easing-out);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    border-color: var(--color-brand);
+  }
+
+  .card:hover .photo img {
+    transform: scale(1.05);
+  }
+}
+
+/* Las dos fotos pegadas; el hueco de 4 px deja ver la línea naranja de marca. */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  background-color: var(--color-brand);
+}
+
+.figure {
+  position: relative;
+  margin: 0;
+}
+
+/* Las fotos van a sangre: las esquinas las recorta la tarjeta. */
+.pair .photo {
+  border-radius: var(--radius-none);
+}
+
+/* Etiqueta sobre la foto: ANTES en negro con texto naranja, DESPUÉS en naranja con texto negro. */
+.tag {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: 0.08em;
+  line-height: var(--line-height-snug);
+  text-transform: uppercase;
+}
+
+.tagBefore {
+  background-color: var(--color-dark);
+  color: var(--color-brand);
+}
+
+.tagAfter {
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+}
+
+.bar {
+  width: 3rem;
+  height: 0.25rem;
+  background-color: var(--color-brand);
+}
+
+@media (min-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

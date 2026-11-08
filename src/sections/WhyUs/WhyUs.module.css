@@ -1,0 +1,101 @@
+/*
+ * Banda a todo el ancho de bloques rectos que alternan naranja y negro (estilo bloque de marca).
+ * Móvil: una columna alternando. Desde 768px: tablero 2x2 en ajedrez (naranja, negro / negro, naranja).
+ */
+.band {
+  padding-block: 0;
+}
+
+.board {
+  display: grid;
+  margin: 0;
+  padding: 0;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-10);
+  min-height: 16rem;
+  padding: var(--space-8) var(--container-padding-inline);
+  /* El texto de la columna izquierda se alinea con el contenido del resto de la página (que está centrado en el contenedor). */
+  padding-left: max(
+    var(--container-padding-inline),
+    calc((100vw - var(--container-max)) / 2 + var(--container-padding-inline))
+  );
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.description {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-snug);
+}
+
+/* Bloque naranja: texto e icono en negro. */
+.block:nth-child(odd) {
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+/* Bloque negro: texto blanco, icono naranja y descripción en gris. */
+.block:nth-child(even) {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.block:nth-child(even) .icon {
+  color: var(--color-brand);
+}
+
+.block:nth-child(even) .description {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .block {
+    min-height: 18rem;
+    padding-block: var(--space-10);
+  }
+
+  /* Columna derecha: padding normal (la izquierda ya está alineada con el contenedor). */
+  .block:nth-child(even) {
+    padding-left: var(--container-padding-inline);
+  }
+
+  /* Ajedrez: el tercer bloque pasa a negro y el cuarto a naranja. */
+  .block:nth-child(3) {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  .block:nth-child(3) .icon {
+    color: var(--color-brand);
+  }
+
+  .block:nth-child(3) .description {
+    color: var(--color-text-muted);
+  }
+
+  .block:nth-child(4) {
+    background-color: var(--color-brand);
+    color: var(--color-text-inverse);
+  }
+
+  .block:nth-child(4) .icon {
+    color: var(--color-text-inverse);
+  }
+
+  .block:nth-child(4) .description {
+    color: inherit;
+  }
+}
